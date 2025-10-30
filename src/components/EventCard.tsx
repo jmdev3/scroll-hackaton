@@ -10,12 +10,6 @@ interface EventCardProps {
 }
 
 export default function EventCard({ event }: EventCardProps) {
-  const router = useRouter();
-
-  const handleCardClick = () => {
-    router.push(`/event/${event.id}`);
-  };
-
   const handleYesClick = (e: React.MouseEvent) => {
     e.stopPropagation();
     // TODO: Implement Yes button logic
@@ -37,9 +31,7 @@ export default function EventCard({ event }: EventCardProps) {
   const isResolved = event.outcome !== undefined && event.outcome !== null;
 
   return (
-    // biome-ignore lint/a11y/useKeyWithClickEvents: testing
-    // biome-ignore lint/a11y/noStaticElementInteractions: testing
-    <div className={styles.card} onClick={handleCardClick}>
+    <div className={styles.card}>
       <div className={styles.imageContainer}>
         <Image
           preview={false}
