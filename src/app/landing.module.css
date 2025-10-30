@@ -16,6 +16,27 @@
   min-height: calc(100vh - 65px);
 }
 
+/* Header Section */
+.header {
+  margin-bottom: var(--space-xl);
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+  gap: var(--space-lg);
+}
+
+.walletSection {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.balanceItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
 /* Main Layout */
 .mainLayout {
   background: transparent;

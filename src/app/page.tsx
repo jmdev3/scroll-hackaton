@@ -1,19 +1,39 @@
 "use client";
 
 import EventCard from "@/components/EventCard";
-import { useMarkets } from "@/hooks";
+import { useMarkets, useWallet } from "@/hooks";
 import type { Event } from "@/types";
-import { Col, Layout, Row, Spin } from "antd";
+import { DisconnectOutlined, ReloadOutlined, WalletOutlined } from "@ant-design/icons";
+import { Button, Col, Layout, Row, Space, Spin, Tag, Typography, message } from "antd";
 import styles from "./landing.module.css";
+
+const { Text } = Typography;
 
 export default function Home() {
   const { markets, loading, error } = useMarkets();
+  const wallet = useWallet();
 
   // Convert MarketInfo to Event format (they're compatible)
   const events: Event[] = markets.map((market, index) => ({
     ...market,
     id: index, // Use index as id for React keys
   }));
+
+  // Handle wallet connection
+  const handleConnect = async () => {
+    try {
+      await wallet.connect();
+      message.success("Wallet connected successfully!");
+    } catch (error: any) {
+      console.error("Error connecting wallet:", error);
+      message.error(error.message || "Failed to connect wallet");
+    }
+  };
+
+  // Format address for display
+  const formatAddress = (address: string) => {
+    return `${address.slice(0, 6)}...${address.slice(-4)}`;
+  };
 
   if (loading) {
     return (
@@ -61,6 +81,48 @@ export default function Home() {
     <Layout className={styles.layout}>
       <Layout className={styles.contentLayout}>
         <Layout.Content className={styles.content}>
+          {/* Wallet Section */}
+          <div className={styles.header}>
+            <div className={styles.walletSection}>
+              {wallet.isConnected ? (
+                <Space direction="vertical" size="small" align="end">
+                  <Space>
+                    <Tag color="green">{formatAddress(wallet.account!)}</Tag>
+                    <Button icon={<DisconnectOutlined />} onClick={wallet.disconnect} size="small">
+                      Disconnect
+                    </Button>
+                  </Space>
+                  <Space size="large">
+                    <div className={styles.balanceItem}>
+                      <Text type="secondary">ETH:</Text>
+                      <Text strong>{wallet.formattedNativeBalance} ETH</Text>
+                    </div>
+                    <div className={styles.balanceItem}>
+                      <Text type="secondary">USDC:</Text>
+                      <Text strong>{wallet.formattedUsdcBalance} USDC</Text>
+                    </div>
+                    <Button
+                      icon={<ReloadOutlined />}
+                      onClick={wallet.refreshBalances}
+                      size="small"
+                      type="text"
+                    />
+                  </Space>
+                </Space>
+              ) : (
+                <Button
+                  type="primary"
+                  icon={<WalletOutlined />}
+                  onClick={handleConnect}
+                  loading={wallet.isConnecting}
+                >
+                  Connect Wallet
+                </Button>
+              )}
+            </div>
+          </div>
+
+          {/* Markets Grid */}
           {events.length === 0 ? (
             <div
               style={{
