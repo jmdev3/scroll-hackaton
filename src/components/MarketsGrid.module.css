@@ -1,0 +1,93 @@
+.marketsGrid {
+  width: 100%;
+  padding: 24px 0;
+}
+
+.marketsHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.marketsContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 24px;
+  width: 100%;
+}
+
+.marketCard {
+  background: var(--background-tertiary);
+  border: 1px solid rgba(67, 101, 255, 0.2);
+  border-radius: var(--border-radius-lg);
+  transition: all var(--transition-normal);
+}
+
+.marketCard:hover {
+  border-color: rgba(67, 101, 255, 0.4);
+  box-shadow: var(--shadow-lg);
+}
+
+.marketHeader {
+  margin-bottom: 12px;
+}
+
+.marketTitle {
+  color: var(--foreground) !important;
+  margin-bottom: 16px !important;
+  font-size: 16px !important;
+  line-height: 1.4 !important;
+}
+
+.marketProbability {
+  margin-bottom: 16px;
+}
+
+.probabilityLabel {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.probabilityValue {
+  color: var(--primary) !important;
+  font-weight: 600 !important;
+}
+
+.marketStats {
+  margin-bottom: 16px;
+  padding: 12px 0;
+  border-top: 1px solid rgba(67, 101, 255, 0.1);
+  border-bottom: 1px solid rgba(67, 101, 255, 0.1);
+}
+
+.marketActions {
+  margin-top: 16px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .marketsContainer {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+  }
+
+  .marketsHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .marketsContainer {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .marketsGrid {
+    padding: 16px 0;
+  }
+}

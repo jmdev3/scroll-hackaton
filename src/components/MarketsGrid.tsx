@@ -2,6 +2,7 @@
 
 import { Card, Progress, Space, Tag, Typography, Button } from "antd";
 import { RiseOutlined, FireOutlined } from "@ant-design/icons";
+import styles from "./MarketsGrid.module.css";
 
 const { Title, Text } = Typography;
 
@@ -70,16 +71,16 @@ const MarketsGrid = () => {
   };
 
   return (
-    <div className="markets-grid">
-      <div className="markets-header">
+    <div className={styles.marketsGrid}>
+      <div className={styles.marketsHeader}>
         <Title level={2}>Active Markets</Title>
         <Button type="link">View All →</Button>
       </div>
 
-      <div className="markets-container">
+      <div className={styles.marketsContainer}>
         {markets.map((market) => (
-          <Card key={market.id} className="market-card" hoverable size="default">
-            <div className="market-header">
+          <Card key={market.id} className={styles.marketCard} hoverable size="default">
+            <div className={styles.marketHeader}>
               <Space>
                 <Tag color="blue">{market.category}</Tag>
                 {market.trending && (
@@ -90,14 +91,14 @@ const MarketsGrid = () => {
               </Space>
             </div>
 
-            <Title level={4} className="market-title">
+            <Title level={4} className={styles.marketTitle}>
               {market.title}
             </Title>
 
-            <div className="market-probability">
-              <div className="probability-label">
+            <div className={styles.marketProbability}>
+              <div className={styles.probabilityLabel}>
                 <Text strong>Probability</Text>
-                <Text className="probability-value">{market.probability}%</Text>
+                <Text className={styles.probabilityValue}>{market.probability}%</Text>
               </div>
               <Progress
                 percent={market.probability}
@@ -107,7 +108,7 @@ const MarketsGrid = () => {
               />
             </div>
 
-            <div className="market-stats">
+            <div className={styles.marketStats}>
               <Space split={<span>•</span>}>
                 <Space>
                   <RiseOutlined />
@@ -117,7 +118,7 @@ const MarketsGrid = () => {
               </Space>
             </div>
 
-            <div className="market-actions">
+            <div className={styles.marketActions}>
               <Button type="primary" block>
                 Place Bet
               </Button>

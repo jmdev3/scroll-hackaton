@@ -1,59 +1,54 @@
 "use client";
 
-import { Button, Tabs, Typography } from "antd";
-import { SearchOutlined } from "@ant-design/icons";
+import { Typography } from "antd";
+import { EventSlider } from "./index";
+import styles from "./HeroSection.module.css";
+
+// Mock data for demonstration
+const mockEvents = [
+  {
+    id: "1",
+    question: "Will Bitcoin reach $100,000 by end of 2024?",
+    image_url: "https://images.unsplash.com/photo-1518186285589-2f7649de83e0?w=800&h=400&fit=crop",
+    ends_at: Date.now() + 7 * 24 * 60 * 60 * 1000, // 7 days from now
+  },
+  {
+    id: "2",
+    question: "Will the Lakers win the NBA championship this season?",
+    image_url: "https://images.unsplash.com/photo-1546519638-68e109498ffc?w=800&h=400&fit=crop",
+    ends_at: Date.now() + 14 * 24 * 60 * 60 * 1000, // 14 days from now
+  },
+  {
+    id: "3",
+    question: "Will AI achieve human-level reasoning by 2025?",
+    image_url: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=400&fit=crop",
+    ends_at: Date.now() + 30 * 24 * 60 * 60 * 1000, // 30 days from now
+  },
+];
 
 const { Title, Paragraph } = Typography;
 
 const HeroSection = () => {
-  const tabItems = [
-    {
-      key: "trending",
-      label: "🔥 Trending",
-    },
-    {
-      key: "politics",
-      label: "🏛️ Politics",
-    },
-    {
-      key: "sports",
-      label: "⚽ Sports",
-    },
-    {
-      key: "crypto",
-      label: "₿ Crypto",
-    },
-    {
-      key: "entertainment",
-      label: "🎬 Entertainment",
-    },
-  ];
-
   return (
-    <div className="hero-section">
-      <div className="hero-content">
-        <div className="hero-text">
-          <Title level={1} className="hero-title">
+    <div className={styles.heroSection}>
+      <div className={styles.heroContent}>
+        <div className={styles.heroText}>
+          <Title level={1} className={styles.heroTitle}>
             Prediction Markets
           </Title>
-          <Paragraph className="hero-subtitle">
+          <Paragraph className={styles.heroSubtitle}>
             Speculate on everything from elections to entertainment. Your insights have value.
           </Paragraph>
         </div>
 
-        <div className="hero-tabs">
-          <Tabs
-            defaultActiveKey="trending"
-            items={tabItems}
-            size="large"
-            className="category-tabs"
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          <EventSlider
+            events={mockEvents}
+            autoplay={true}
+            autoplaySpeed={5000}
+            showDots={true}
+            showArrows={true}
           />
-        </div>
-
-        <div className="hero-actions">
-          <Button type="primary" size="large" icon={<SearchOutlined />} className="search-button">
-            Browse Markets
-          </Button>
         </div>
       </div>
     </div>

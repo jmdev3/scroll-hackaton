@@ -1,0 +1,261 @@
+.sliderContainer {
+  width: 100%;
+  position: relative;
+  background: var(--background-secondary);
+  border: 1px solid rgba(67, 101, 255, 0.2);
+  border-radius: var(--border-radius-lg);
+  overflow: hidden;
+  margin: 0 -24px;
+}
+
+.carousel {
+  width: 100%;
+}
+
+.slide {
+  width: 100%;
+}
+
+.sliderItem {
+  width: 100%;
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  position: relative;
+}
+
+.sliderItem:hover {
+  transform: scale(1.01);
+}
+
+.imageContainer {
+  width: 100%;
+  height: 400px;
+  position: relative;
+  overflow: hidden;
+  background: var(--background-tertiary);
+  margin: 0 -24px;
+}
+
+.image {
+  width: 100vw;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: transform var(--transition-normal);
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.sliderItem:hover .image {
+  transform: translateX(-50%) scale(1.05);
+}
+
+.overlay {
+  position: absolute;
+  bottom: 0;
+  left: 24px;
+  right: 24px;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  padding: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.questionContainer {
+  flex: 1;
+  max-width: 70%;
+}
+
+.question {
+  color: var(--foreground);
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.4;
+  margin: 0 0 8px 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.countdown {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.buttonsContainer {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.resolvedBadge {
+  padding: 10px 20px;
+  background: rgba(67, 101, 255, 0.15);
+  border: 1px solid rgba(67, 101, 255, 0.3);
+  border-radius: var(--border-radius);
+  color: var(--primary);
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.emptyState {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 400px;
+  background: var(--background-secondary);
+  border: 1px solid rgba(67, 101, 255, 0.2);
+  border-radius: var(--border-radius-lg);
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 16px;
+}
+
+/* Ant Design Carousel Customization */
+.carousel .slick-dots {
+  bottom: 16px;
+  z-index: 10;
+}
+
+.carousel .slick-dots li button {
+  background: rgba(255, 255, 255, 0.4);
+  border-radius: 50%;
+  width: 8px;
+  height: 8px;
+  transition: all var(--transition-fast);
+}
+
+.carousel .slick-dots li.slick-active button {
+  background: var(--primary);
+  width: 24px;
+  border-radius: 4px;
+}
+
+.carousel .slick-prev,
+.carousel .slick-next {
+  z-index: 10;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-fast);
+}
+
+.carousel .slick-prev:hover,
+.carousel .slick-next:hover {
+  background: rgba(67, 101, 255, 0.8);
+  transform: scale(1.1);
+}
+
+.carousel .slick-prev::before,
+.carousel .slick-next::before {
+  color: white;
+  font-size: 16px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .imageContainer {
+    height: 300px;
+  }
+
+  .overlay {
+    padding: 16px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .questionContainer {
+    max-width: 100%;
+  }
+
+  .question {
+    font-size: 16px;
+  }
+
+  .buttonsContainer {
+    width: 100%;
+    justify-content: flex-end;
+  }
+
+  .carousel .slick-prev,
+  .carousel .slick-next {
+    width: 32px;
+    height: 32px;
+  }
+
+  .carousel .slick-prev::before,
+  .carousel .slick-next::before {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .imageContainer {
+    height: 250px;
+  }
+
+  .overlay {
+    padding: 12px;
+  }
+
+  .question {
+    font-size: 14px;
+  }
+
+  .countdown {
+    font-size: 12px;
+  }
+
+  .buttonsContainer {
+    gap: 6px;
+  }
+
+  .carousel .slick-dots {
+    bottom: 12px;
+  }
+
+  .carousel .slick-prev,
+  .carousel .slick-next {
+    width: 28px;
+    height: 28px;
+  }
+}
+
+/* Large screens */
+@media (min-width: 1200px) {
+  .imageContainer {
+    height: 500px;
+  }
+
+  .overlay {
+    padding: 32px;
+  }
+
+  .question {
+    font-size: 20px;
+  }
+
+  .countdown {
+    font-size: 14px;
+  }
+}

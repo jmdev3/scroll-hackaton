@@ -5,6 +5,8 @@ import "@ant-design/v5-patch-for-react-19";
 import { App, ConfigProvider, Layout } from "antd";
 import "antd/dist/reset.css";
 import "../styles/globals.css";
+import AppSider from "../components/AppSider/AppSider";
+import styles from "./landing.module.css";
 
 const { Content } = Layout;
 
@@ -89,9 +91,44 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
             }}
           >
             <App>
-              <Layout style={{ background: "transparent !important", minHeight: "100vh" }}>
-                <Layout className="main-layout">
-                  <Content className="main-content" style={{ padding: 0 }}>
+              <Layout
+                style={{
+                  background: "transparent !important",
+                  minHeight: "100vh",
+                }}
+              >
+                <Layout className={styles.mainLayout}>
+                  <Content className={styles.mainContent} style={{ padding: 0 }}>
+                    <Sider className={styles.sider} width={240}>
+                      <div className={styles.logo}>
+                        <span className={styles.logoText}>market.fun</span>
+                      </div>
+
+                      <Menu
+                        theme="dark"
+                        mode="inline"
+                        selectedKeys={["home"]}
+                        items={menuItems}
+                        className={styles.menu}
+                      />
+
+                      <div className={styles.userSection}>
+                        <Space direction="vertical" size="small" style={{ width: "100%" }}>
+                          <div className={styles.userInfo}>
+                            <Avatar icon={<UserOutlined />} size="small" />
+                            <span className={styles.userName}>User</span>
+                          </div>
+                          <Button
+                            type="text"
+                            icon={<LogoutOutlined />}
+                            size="small"
+                            className={styles.logoutBtn}
+                          >
+                            Logout
+                          </Button>
+                        </Space>
+                      </div>
+                    </Sider>
                     {children}
                   </Content>
                 </Layout>

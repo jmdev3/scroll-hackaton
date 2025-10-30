@@ -65,53 +65,6 @@
   margin-top: auto;
 }
 
-.button {
-  padding: 10px 20px;
-  border: none;
-  border-radius: var(--border-radius);
-  font-size: 13px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.button:disabled {
-  cursor: not-allowed;
-  opacity: 0.6;
-}
-
-.yesButton {
-  background: rgba(52, 199, 89, 0.15);
-  color: #34c759;
-  border: 1px solid rgba(52, 199, 89, 0.3);
-}
-
-.yesButton:hover:not(:disabled) {
-  background: rgba(52, 199, 89, 0.25);
-  border-color: rgba(52, 199, 89, 0.5);
-  transform: scale(1.02);
-}
-
-.noButton {
-  background: rgba(255, 69, 58, 0.15);
-  color: #ff453a;
-  border: 1px solid rgba(255, 69, 58, 0.3);
-}
-
-.noButton:hover:not(:disabled) {
-  background: rgba(255, 69, 58, 0.25);
-  border-color: rgba(255, 69, 58, 0.5);
-  transform: scale(1.02);
-}
-
-.winningButton {
-  background: rgba(67, 101, 255, 0.25) !important;
-  border-color: rgba(67, 101, 255, 0.5) !important;
-  box-shadow: 0 0 12px rgba(67, 101, 255, 0.4);
-}
-
 .resolvedBadge {
   text-align: center;
   padding: 10px 20px;
@@ -145,11 +98,6 @@
     font-size: 14px;
     min-height: auto;
   }
-
-  .button {
-    padding: 8px 16px;
-    font-size: 12px;
-  }
 }
 
 @media (max-width: 480px) {
@@ -169,10 +117,4 @@
   .buttonsContainer {
     gap: 6px;
   }
-
-  .button {
-    padding: 8px 14px;
-    font-size: 11px;
-  }
 }
-
