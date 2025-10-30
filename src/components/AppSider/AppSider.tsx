@@ -1,21 +1,15 @@
 "use client";
 
-import {
-  AppstoreOutlined,
-  HomeOutlined,
-  LogoutOutlined,
-  SettingOutlined,
-  UserOutlined,
-} from "@ant-design/icons";
-import { Avatar, Button, Menu, Space } from "antd";
+import { HomeOutlined } from "@ant-design/icons";
+import { Menu } from "antd";
 import Sider from "antd/es/layout/Sider";
 import styles from "./AppSider.module.css";
 
 const menuItems = [
   {
-    key: "home",
+    key: "markets",
     icon: <HomeOutlined />,
-    label: "Home",
+    label: "Markets",
   },
 ];
 
@@ -29,7 +23,7 @@ export default function AppSider() {
       <Menu
         theme="dark"
         mode="inline"
-        selectedKeys={["home"]}
+        selectedKeys={["Markets"]}
         items={menuItems}
         className={styles.menu}
       />
