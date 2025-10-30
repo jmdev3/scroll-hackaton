@@ -1,19 +1,11 @@
 "use client";
 
-import { Image } from "antd";
 import { formatDistanceToNow } from "date-fns";
-import { useRouter } from "next/navigation";
 import type { Event } from "@/types";
 import styles from "./EventSlider.module.css";
 import PredictionButton from "./PredictionButton/PredictionButton";
 
 export default function EventSliderItem({ event }: { event: Event }) {
-  const router = useRouter();
-
-  const handleCardClick = () => {
-    router.push(`/event/${event.id}`);
-  };
-
   const handleYesClick = (e: React.MouseEvent) => {
     e.stopPropagation();
     // TODO: Implement Yes button logic
@@ -37,13 +29,19 @@ export default function EventSliderItem({ event }: { event: Event }) {
   return (
     // biome-ignore lint/a11y/useKeyWithClickEvents: <explanation>
     // biome-ignore lint/a11y/noStaticElementInteractions: <explanation>
-    <div className={styles.sliderItem} onClick={handleCardClick}>
+    <div className={styles.sliderItem}>
       <div className={styles.imageContainer}>
-        <Image
-          preview={false}
+        {/** biome-ignore lint/performance/noImgElement: <explanation> */}
+        <img
           src={event.image_url}
           alt={event.question}
           className={styles.image}
+          onError={(e) => {
+            // Fallback to a placeholder if image fails to load
+            const target = e.target as HTMLImageElement;
+            target.src =
+              "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=800&h=400&fit=crop";
+          }}
         />
 
         <div className={styles.overlay}>
