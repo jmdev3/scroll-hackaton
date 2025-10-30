@@ -1,0 +1,89 @@
+.container {
+  padding: var(--space-xl);
+  max-width: 1400px;
+  margin: 0 auto;
+  min-height: 100vh;
+  padding-left: 260px;
+}
+
+.header {
+  margin-bottom: var(--space-xl);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--space-lg);
+}
+
+.walletSection {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.balanceItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+}
+
+.card {
+  background: var(--colorBgElevated, #0f0f1a);
+  border: 1px solid rgba(0, 212, 255, 0.2);
+  border-radius: 16px;
+}
+
+.card :global(.ant-card-head) {
+  border-bottom: 1px solid rgba(0, 212, 255, 0.2);
+}
+
+.card :global(.ant-card-head-title) {
+  color: var(--colorTextHeading, #ffffff);
+  font-weight: 600;
+}
+
+.card :global(.ant-card-body) {
+  padding: var(--space-lg);
+}
+
+/* Table Styles */
+:global(.ant-table) {
+  background: transparent;
+}
+
+:global(.ant-table-thead > tr > th) {
+  background: rgba(0, 212, 255, 0.05);
+  border-bottom: 1px solid rgba(0, 212, 255, 0.2);
+  color: var(--colorTextHeading, #ffffff);
+  font-weight: 600;
+}
+
+:global(.ant-table-tbody > tr > td) {
+  border-bottom: 1px solid rgba(0, 212, 255, 0.1);
+  color: var(--colorText, #ffffff);
+}
+
+:global(.ant-table-tbody > tr:hover > td) {
+  background: rgba(0, 212, 255, 0.05);
+}
+
+/* Form Styles */
+:global(.ant-form-item-label > label) {
+  color: var(--colorText, #ffffff);
+}
+
+/* Button Styles */
+:global(.ant-btn-primary) {
+  background: #00d4ff;
+  border-color: #00d4ff;
+}
+
+:global(.ant-btn-primary:hover) {
+  background: #00e6ff;
+  border-color: #00e6ff;
+}
