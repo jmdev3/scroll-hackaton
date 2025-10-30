@@ -10,7 +10,7 @@ import styles from "./landing.module.css";
 const { Text } = Typography;
 
 export default function Home() {
-  const { markets, loading, error } = useMarkets();
+  const { markets, loading, error, refresh: refreshMarkets } = useMarkets();
   const wallet = useWallet();
 
   // Convert MarketInfo to Event format (they're compatible)
@@ -18,6 +18,11 @@ export default function Home() {
     ...market,
     id: index, // Use index as id for React keys
   }));
+
+  // Refresh markets after a bet is placed
+  const handleBetPlaced = async () => {
+    await refreshMarkets();
+  };
 
   // Handle wallet connection
   const handleConnect = async () => {
@@ -138,7 +143,7 @@ export default function Home() {
             <Row gutter={[16, 16]}>
               {events.map((event, idx) => (
                 <Col key={`${event.collateral}-${idx}`} xs={12} sm={8} md={6} lg={6} xl={4}>
-                  <EventCard event={event} />
+                  <EventCard event={event} marketId={idx} onBetPlaced={handleBetPlaced} />
                 </Col>
               ))}
             </Row>

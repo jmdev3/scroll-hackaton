@@ -1,9 +1,9 @@
 "use client";
 
-import { useMemo } from "react";
+import { Outcome } from "@/hooks/useMarketContract";
 import type { Event } from "@/types";
 import { getRandomPlaceholderImage } from "@/types";
-import { Outcome } from "@/hooks/useMarketContract";
+import { useMemo } from "react";
 import styles from "./EventSlider.module.css";
 import PredictionButton from "./PredictionButton/PredictionButton";
 
@@ -27,8 +27,24 @@ export default function EventSliderItem({ event }: { event: Event }) {
   const isResolved = event.resolved;
   const resultText = event.result === Outcome.YES ? "Yes" : "No";
 
-  // Calculate total shares for display
+  // Calculate total shares for display (USDC has 6 decimals)
+  const totalYesSharesFormatted = (Number(event.totalYesShares) / 1e6).toFixed(6);
+  const totalNoSharesFormatted = (Number(event.totalNoShares) / 1e6).toFixed(6);
   const totalShares = Number(event.totalYesShares) + Number(event.totalNoShares);
+
+  // Calculate odds and probabilities
+  const yesProbability = totalShares > 0 ? (Number(event.totalYesShares) / totalShares) * 100 : 50;
+  const noProbability = totalShares > 0 ? (Number(event.totalNoShares) / totalShares) * 100 : 50;
+
+  // Calculate decimal odds (payout multiplier)
+  const yesOdds =
+    Number(event.totalYesShares) > 0 && totalShares > 0
+      ? (totalShares / Number(event.totalYesShares)).toFixed(2)
+      : "2.00";
+  const noOdds =
+    Number(event.totalNoShares) > 0 && totalShares > 0
+      ? (totalShares / Number(event.totalNoShares)).toFixed(2)
+      : "2.00";
 
   return (
     <div className={styles.sliderItem}>
@@ -49,10 +65,13 @@ export default function EventSliderItem({ event }: { event: Event }) {
         <div className={styles.overlay}>
           <div className={styles.questionContainer}>
             <h3 className={styles.question}>{event.question}</h3>
-            {totalShares > 0 && (
+            {totalShares > 0 ? (
               <div className={styles.countdown}>
-                Yes: {Number(event.totalYesShares).toLocaleString()} | No: {Number(event.totalNoShares).toLocaleString()}
+                Yes: {totalYesSharesFormatted} ({yesProbability.toFixed(1)}%) {yesOdds}x | No:{" "}
+                {totalNoSharesFormatted} ({noProbability.toFixed(1)}%) {noOdds}x
               </div>
+            ) : (
+              <div className={styles.countdown}>No bets yet</div>
             )}
           </div>
 
