@@ -1,85 +1,86 @@
 "use client";
 
-import { Col, Layout, Row } from "antd";
 import EventCard from "@/components/EventCard";
-import HeroSection from "@/components/HeroSection";
+import { useMarkets } from "@/hooks";
 import type { Event } from "@/types";
+import { Col, Layout, Row, Spin } from "antd";
 import styles from "./landing.module.css";
 
-// Sample events data
-const sampleEvents: Event[] = [
-  {
-    id: "1",
-    question: "Lakers vs. Grizzlies: Who wins?",
-    image_url:
-      "https://images.unsplash.com/photo-1546519638-68e109498ffc?w=800&auto=format&fit=crop",
-    ends_at: Date.now() + 86400000, // 1 day from now
-  },
-  {
-    id: "2",
-    question: "Will Bitcoin reach $100k by end of year?",
-    image_url:
-      "https://images.unsplash.com/photo-1621416894569-0f39ed31d247?w=800&auto=format&fit=crop",
-    ends_at: Date.now() + 172800000, // 2 days from now
-  },
-  {
-    id: "3",
-    question: "Will it rain tomorrow in San Francisco?",
-    image_url:
-      "https://images.unsplash.com/photo-1534274988757-a28bf1a57c17?w=800&auto=format&fit=crop",
-    ends_at: Date.now() + 43200000, // 12 hours from now
-  },
-  {
-    id: "4",
-    question: "Will the new iPhone be released in September?",
-    outcome: true,
-    image_url:
-      "https://images.unsplash.com/photo-1510557880182-3d4d3cba35a5?w=800&auto=format&fit=crop",
-    ends_at: Date.now() - 86400000, // Ended 1 day ago
-  },
-  {
-    id: "5",
-    question: "Golden State Warriors to win NBA Championship?",
-    image_url:
-      "https://images.unsplash.com/photo-1608245449230-4ac19066d2d0?w=800&auto=format&fit=crop",
-    ends_at: Date.now() + 259200000, // 3 days from now
-  },
-  {
-    id: "6",
-    question: "Will Tesla stock hit $300 this month?",
-    outcome: false,
-    image_url:
-      "https://images.unsplash.com/photo-1560958089-b8a1929cea89?w=800&auto=format&fit=crop",
-    ends_at: Date.now() - 172800000, // Ended 2 days ago
-  },
-];
-
 export default function Home() {
-  // Create extended events array
-  const allEvents = [
-    ...sampleEvents,
-    ...sampleEvents,
-    ...sampleEvents,
-    ...sampleEvents,
-    ...sampleEvents,
-    ...sampleEvents,
-  ];
+  const { markets, loading, error } = useMarkets();
 
-  // Calculate items to show before hero (2 rows * 2 columns = 4 items for mobile baseline)
-  const itemsBeforeHero = 12;
+  // Convert MarketInfo to Event format (they're compatible)
+  const events: Event[] = markets.map((market, index) => ({
+    ...market,
+    id: index, // Use index as id for React keys
+  }));
+
+  if (loading) {
+    return (
+      <Layout className={styles.layout}>
+        <Layout className={styles.contentLayout}>
+          <Layout.Content className={styles.content}>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                minHeight: "400px",
+              }}
+            >
+              <Spin size="large" />
+            </div>
+          </Layout.Content>
+        </Layout>
+      </Layout>
+    );
+  }
+
+  if (error) {
+    return (
+      <Layout className={styles.layout}>
+        <Layout className={styles.contentLayout}>
+          <Layout.Content className={styles.content}>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                minHeight: "400px",
+              }}
+            >
+              <p style={{ color: "red" }}>Error loading markets: {error.message}</p>
+            </div>
+          </Layout.Content>
+        </Layout>
+      </Layout>
+    );
+  }
 
   return (
     <Layout className={styles.layout}>
       <Layout className={styles.contentLayout}>
         <Layout.Content className={styles.content}>
-          {/* First two rows of Event Cards */}
-          <Row gutter={[16, 16]}>
-            {allEvents.map((event, idx) => (
-              <Col key={`${event.id}-${idx}`} xs={12} sm={8} md={6} lg={6} xl={4}>
-                <EventCard event={event} />
-              </Col>
-            ))}
-          </Row>
+          {events.length === 0 ? (
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                minHeight: "400px",
+              }}
+            >
+              <p>No markets available</p>
+            </div>
+          ) : (
+            <Row gutter={[16, 16]}>
+              {events.map((event, idx) => (
+                <Col key={`${event.collateral}-${idx}`} xs={12} sm={8} md={6} lg={6} xl={4}>
+                  <EventCard event={event} />
+                </Col>
+              ))}
+            </Row>
+          )}
         </Layout.Content>
       </Layout>
     </Layout>

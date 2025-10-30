@@ -1,9 +1,17 @@
+import type { Address } from "viem";
+import { Outcome } from "@/hooks/useMarketContract";
+
 export interface Event {
-  id: string;
+  collateral: Address;
+  owner: Address;
   question: string;
-  outcome?: boolean;
-  image_url: string;
-  ends_at: number;
+  resolved: boolean;
+  result: Outcome;
+  totalBalance: bigint;
+  totalNoShares: bigint;
+  totalYesShares: bigint;
+  // Optional: index for display purposes
+  id?: string | number;
 }
 
 export const PLACEHOLDER_IMAGES = [
@@ -19,6 +27,27 @@ export const PLACEHOLDER_IMAGES = [
   "https://images.unsplash.com/photo-1556761175-6d5c77a8e7b4?w=400&h=300&fit=crop",
 ];
 
-export const getRandomPlaceholderImage = (): string => {
+/**
+ * Get a random placeholder image, optionally seeded by a value for consistent assignment
+ */
+export const getRandomPlaceholderImage = (seed?: string | number): string => {
+  if (seed !== undefined) {
+    // Use seed to consistently assign image for the same market
+    const index = typeof seed === "number" ? seed : hashString(seed);
+    return PLACEHOLDER_IMAGES[Math.abs(index) % PLACEHOLDER_IMAGES.length];
+  }
   return PLACEHOLDER_IMAGES[Math.floor(Math.random() * PLACEHOLDER_IMAGES.length)];
 };
+
+/**
+ * Simple hash function to convert string to number for consistent image assignment
+ */
+function hashString(str: string): number {
+  let hash = 0;
+  for (let i = 0; i < str.length; i++) {
+    const char = str.charCodeAt(i);
+    hash = (hash << 5) - hash + char;
+    hash = hash & hash; // Convert to 32-bit integer
+  }
+  return hash;
+}

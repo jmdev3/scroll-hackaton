@@ -1,7 +1,9 @@
 "use client";
 
-import { formatDistanceToNow } from "date-fns";
+import { useMemo } from "react";
 import type { Event } from "@/types";
+import { getRandomPlaceholderImage } from "@/types";
+import { Outcome } from "@/hooks/useMarketContract";
 import styles from "./EventSlider.module.css";
 import PredictionButton from "./PredictionButton/PredictionButton";
 
@@ -16,22 +18,24 @@ export default function EventSliderItem({ event }: { event: Event }) {
     // TODO: Implement No button logic
   };
 
-  const getCountdown = () => {
-    const now = Date.now();
-    if (event.ends_at < now) {
-      return "Ended";
-    }
-    return `Ends ${formatDistanceToNow(event.ends_at, { addSuffix: true })}`;
-  };
+  // Assign image based on collateral address for consistency
+  const imageUrl = useMemo(() => {
+    return getRandomPlaceholderImage(event.collateral);
+  }, [event.collateral]);
 
-  const isResolved = event.outcome !== undefined && event.outcome !== null;
+  // Determine if resolved and get result
+  const isResolved = event.resolved;
+  const resultText = event.result === Outcome.YES ? "Yes" : "No";
+
+  // Calculate total shares for display
+  const totalShares = Number(event.totalYesShares) + Number(event.totalNoShares);
 
   return (
     <div className={styles.sliderItem}>
       <div className={styles.imageContainer}>
         {/** biome-ignore lint/performance/noImgElement: testing */}
         <img
-          src={event.image_url}
+          src={imageUrl}
           alt={event.question}
           className={styles.image}
           onError={(e) => {
@@ -45,11 +49,15 @@ export default function EventSliderItem({ event }: { event: Event }) {
         <div className={styles.overlay}>
           <div className={styles.questionContainer}>
             <h3 className={styles.question}>{event.question}</h3>
-            <div className={styles.countdown}>{getCountdown()}</div>
+            {totalShares > 0 && (
+              <div className={styles.countdown}>
+                Yes: {Number(event.totalYesShares).toLocaleString()} | No: {Number(event.totalNoShares).toLocaleString()}
+              </div>
+            )}
           </div>
 
           {isResolved ? (
-            <div className={styles.resolvedBadge}>Resolved: {event.outcome ? "Yes" : "No"}</div>
+            <div className={styles.resolvedBadge}>Resolved: {resultText}</div>
           ) : (
             <div className={styles.buttonsContainer}>
               <PredictionButton variant="yes" onClick={handleYesClick}>

@@ -3,7 +3,7 @@
 import { Carousel } from "antd";
 import styles from "./EventSlider.module.css";
 import EventSliderItem from "./EventSliderItem";
-import { Event } from "./EventCard";
+import type { Event } from "@/types";
 
 interface EventSliderProps {
   events: Event[];
@@ -40,8 +40,8 @@ export default function EventSlider({
         slidesToScroll={1}
         className={styles.carousel}
       >
-        {events.map((event) => (
-          <div key={event.id} className={styles.slide}>
+        {events.map((event, index) => (
+          <div key={event.id ?? `${event.collateral}-${index}`} className={styles.slide}>
             <EventSliderItem event={event} />
           </div>
         ))}

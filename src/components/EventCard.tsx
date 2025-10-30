@@ -1,7 +1,8 @@
 import { Image } from "antd";
-import { formatDistanceToNow } from "date-fns";
-import { useRouter } from "next/navigation";
+import { useMemo } from "react";
 import type { Event } from "@/types";
+import { getRandomPlaceholderImage } from "@/types";
+import { Outcome } from "@/hooks/useMarketContract";
 import styles from "./EventCard.module.css";
 import PredictionButton from "./PredictionButton/PredictionButton";
 
@@ -20,22 +21,24 @@ export default function EventCard({ event }: EventCardProps) {
     // TODO: Implement No button logic
   };
 
-  const getCountdown = () => {
-    const now = Date.now();
-    if (event.ends_at < now) {
-      return "Ended";
-    }
-    return `Ends ${formatDistanceToNow(event.ends_at, { addSuffix: true })}`;
-  };
+  // Assign image based on collateral address for consistency
+  const imageUrl = useMemo(() => {
+    return getRandomPlaceholderImage(event.collateral);
+  }, [event.collateral]);
 
-  const isResolved = event.outcome !== undefined && event.outcome !== null;
+  // Determine if resolved and get result
+  const isResolved = event.resolved;
+  const resultText = event.result === Outcome.YES ? "Yes" : "No";
+
+  // Calculate total shares for display
+  const totalShares = Number(event.totalYesShares) + Number(event.totalNoShares);
 
   return (
     <div className={styles.card}>
       <div className={styles.imageContainer}>
         <Image
           preview={false}
-          src={event.image_url}
+          src={imageUrl}
           alt={event.question}
           className={styles.image}
         />
@@ -44,10 +47,15 @@ export default function EventCard({ event }: EventCardProps) {
       <div className={styles.content}>
         <h3 className={styles.question}>{event.question}</h3>
 
-        <div className={styles.countdown}>{getCountdown()}</div>
+        {totalShares > 0 && (
+          <div className={styles.stats}>
+            <span>Yes: {Number(event.totalYesShares).toLocaleString()}</span>
+            <span>No: {Number(event.totalNoShares).toLocaleString()}</span>
+          </div>
+        )}
 
         {isResolved ? (
-          <div className={styles.resolvedBadge}>Resolved: {event.outcome ? "Yes" : "No"}</div>
+          <div className={styles.resolvedBadge}>Resolved: {resultText}</div>
         ) : (
           <div className={styles.buttonsContainer}>
             <PredictionButton variant="yes" onClick={handleYesClick}>

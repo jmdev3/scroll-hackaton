@@ -1,27 +1,44 @@
 "use client";
 
+import { Outcome } from "@/hooks/useMarketContract";
+import type { Event } from "@/types";
 import EventSlider from "./EventSlider";
 import styles from "./HeroSection.module.css";
 
 // Mock data for demonstration
-const mockEvents = [
+const mockEvents: Event[] = [
   {
     id: "1",
+    collateral: "0xaD2588AFAE3Fb69ec39966d8E732021fe63BFe86" as const,
+    owner: "0x4e62C4aFF48d80D67a395180ed5b6A0E1b924Bff" as const,
     question: "Will Bitcoin reach $100,000 by end of 2024?",
-    image_url: "https://images.unsplash.com/photo-1518186285589-2f7649de83e0?w=800&h=400&fit=crop",
-    ends_at: Date.now() + 7 * 24 * 60 * 60 * 1000, // 7 days from now
+    resolved: false,
+    result: Outcome.YES,
+    totalBalance: 0n,
+    totalNoShares: 0n,
+    totalYesShares: 0n,
   },
   {
     id: "2",
+    collateral: "0xaD2588AFAE3Fb69ec39966d8E732021fe63BFe87" as const,
+    owner: "0x4e62C4aFF48d80D67a395180ed5b6A0E1b924Bff" as const,
     question: "Will the Lakers win the NBA championship this season?",
-    image_url: "https://images.unsplash.com/photo-1546519638-68e109498ffc?w=800&h=400&fit=crop",
-    ends_at: Date.now() + 14 * 24 * 60 * 60 * 1000, // 14 days from now
+    resolved: false,
+    result: Outcome.NO,
+    totalBalance: 0n,
+    totalNoShares: 0n,
+    totalYesShares: 0n,
   },
   {
     id: "3",
+    collateral: "0xaD2588AFAE3Fb69ec39966d8E732021fe63BFe88" as const,
+    owner: "0x4e62C4aFF48d80D67a395180ed5b6A0E1b924Bff" as const,
     question: "Will AI achieve human-level reasoning by 2025?",
-    image_url: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=400&fit=crop",
-    ends_at: Date.now() + 30 * 24 * 60 * 60 * 1000, // 30 days from now
+    resolved: false,
+    result: Outcome.YES,
+    totalBalance: 0n,
+    totalNoShares: 0n,
+    totalYesShares: 0n,
   },
 ];
 
