@@ -14,9 +14,9 @@ const mockEvents: Event[] = [
     question: "Will Bitcoin reach $100,000 by end of 2024?",
     resolved: false,
     result: Outcome.YES,
-    totalBalance: 0n,
-    totalNoShares: 0n,
-    totalYesShares: 0n,
+    totalBalance: BigInt(0),
+    totalNoShares: BigInt(0),
+    totalYesShares: BigInt(0),
   },
   {
     id: "2",
@@ -25,9 +25,9 @@ const mockEvents: Event[] = [
     question: "Will the Lakers win the NBA championship this season?",
     resolved: false,
     result: Outcome.NO,
-    totalBalance: 0n,
-    totalNoShares: 0n,
-    totalYesShares: 0n,
+    totalBalance: BigInt(0),
+    totalNoShares: BigInt(0),
+    totalYesShares: BigInt(0),
   },
   {
     id: "3",
@@ -36,9 +36,9 @@ const mockEvents: Event[] = [
     question: "Will AI achieve human-level reasoning by 2025?",
     resolved: false,
     result: Outcome.YES,
-    totalBalance: 0n,
-    totalNoShares: 0n,
-    totalYesShares: 0n,
+    totalBalance: BigInt(0),
+    totalNoShares: BigInt(0),
+    totalYesShares: BigInt(0),
   },
 ];
 
