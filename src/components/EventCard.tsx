@@ -4,7 +4,7 @@ import { Outcome, useMarketContract, useWallet } from "@/hooks";
 import type { Event } from "@/types";
 import { getRandomPlaceholderImage } from "@/types";
 import { Image, message } from "antd";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Address, parseUnits } from "viem";
 import styles from "./EventCard.module.css";
 import PredictionButton from "./PredictionButton/PredictionButton";
@@ -23,6 +23,35 @@ export default function EventCard({ event, marketId, onBetPlaced }: EventCardPro
   const marketContract = useMarketContract();
   const [isBuyingYes, setIsBuyingYes] = useState(false);
   const [isBuyingNo, setIsBuyingNo] = useState(false);
+  const [userYesShares, setUserYesShares] = useState<bigint>(BigInt(0));
+  const [userNoShares, setUserNoShares] = useState<bigint>(BigInt(0));
+
+  // Fetch user shares when wallet is connected or market changes
+  useEffect(() => {
+    const fetchUserShares = async () => {
+      if (!wallet.isConnected || !wallet.account || !marketContract.isReady) {
+        setUserYesShares(BigInt(0));
+        setUserNoShares(BigInt(0));
+        return;
+      }
+
+      try {
+        const [yesShares, noShares] = await Promise.all([
+          marketContract.getUserShares(marketId, wallet.account, true),
+          marketContract.getUserShares(marketId, wallet.account, false),
+        ]);
+        setUserYesShares(yesShares);
+        setUserNoShares(noShares);
+      } catch (error) {
+        console.error("Error fetching user shares:", error);
+        setUserYesShares(BigInt(0));
+        setUserNoShares(BigInt(0));
+      }
+    };
+
+    fetchUserShares();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [wallet.isConnected, wallet.account, marketId, marketContract.isReady]);
 
   const handleBuyShares = async (isYes: boolean) => {
     if (!wallet.isConnected) {
@@ -119,6 +148,17 @@ export default function EventCard({ event, marketId, onBetPlaced }: EventCardPro
 
       // Refresh balances and markets
       await wallet.refreshBalances();
+
+      // Refresh user shares
+      if (wallet.account) {
+        const [yesShares, noShares] = await Promise.all([
+          marketContract.getUserShares(marketId, wallet.account, true),
+          marketContract.getUserShares(marketId, wallet.account, false),
+        ]);
+        setUserYesShares(yesShares);
+        setUserNoShares(noShares);
+      }
+
       if (onBetPlaced) {
         onBetPlaced();
       }
@@ -157,6 +197,11 @@ export default function EventCard({ event, marketId, onBetPlaced }: EventCardPro
   const totalYesSharesFormatted = (Number(event.totalYesShares) / 1e6).toFixed(6);
   const totalNoSharesFormatted = (Number(event.totalNoShares) / 1e6).toFixed(6);
   const totalShares = Number(event.totalYesShares) + Number(event.totalNoShares);
+
+  // Format user shares
+  const userYesSharesFormatted = (Number(userYesShares) / 1e6).toFixed(6);
+  const userNoSharesFormatted = (Number(userNoShares) / 1e6).toFixed(6);
+  const hasUserShares = userYesShares > BigInt(0) || userNoShares > BigInt(0);
 
   // Calculate odds and probabilities
   const yesProbability = totalShares > 0 ? (Number(event.totalYesShares) / totalShares) * 100 : 50;
@@ -200,6 +245,20 @@ export default function EventCard({ event, marketId, onBetPlaced }: EventCardPro
           <div className={styles.stats}>
             <div className={styles.shareRow}>
               <span className={styles.odds}>No bets yet</span>
+            </div>
+          </div>
+        )}
+
+        {wallet.isConnected && hasUserShares && (
+          <div className={styles.userShares}>
+            <div className={styles.userSharesTitle}>Your Shares:</div>
+            <div className={styles.userSharesRow}>
+              <span className={styles.userShareItem}>
+                Yes: <strong>{userYesSharesFormatted}</strong>
+              </span>
+              <span className={styles.userShareItem}>
+                No: <strong>{userNoSharesFormatted}</strong>
+              </span>
             </div>
           </div>
         )}

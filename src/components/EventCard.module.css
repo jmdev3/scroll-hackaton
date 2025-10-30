@@ -92,6 +92,40 @@
   margin-left: auto;
 }
 
+.userShares {
+  margin-top: 8px;
+  padding: 8px;
+  background: rgba(0, 212, 255, 0.1);
+  border: 1px solid rgba(0, 212, 255, 0.2);
+  border-radius: var(--border-radius);
+  font-size: 11px;
+}
+
+.userSharesTitle {
+  color: var(--primary);
+  font-weight: 600;
+  margin-bottom: 4px;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.userSharesRow {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.userShareItem {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 11px;
+}
+
+.userShareItem strong {
+  color: var(--primary);
+  font-weight: 600;
+}
+
 .buttonsContainer {
   display: grid;
   grid-template-columns: 1fr 1fr;
