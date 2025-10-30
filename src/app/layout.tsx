@@ -99,36 +99,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
               >
                 <Layout className={styles.mainLayout}>
                   <Content className={styles.mainContent} style={{ padding: 0 }}>
-                    <Sider className={styles.sider} width={240}>
-                      <div className={styles.logo}>
-                        <span className={styles.logoText}>market.fun</span>
-                      </div>
-
-                      <Menu
-                        theme="dark"
-                        mode="inline"
-                        selectedKeys={["home"]}
-                        items={menuItems}
-                        className={styles.menu}
-                      />
-
-                      <div className={styles.userSection}>
-                        <Space direction="vertical" size="small" style={{ width: "100%" }}>
-                          <div className={styles.userInfo}>
-                            <Avatar icon={<UserOutlined />} size="small" />
-                            <span className={styles.userName}>User</span>
-                          </div>
-                          <Button
-                            type="text"
-                            icon={<LogoutOutlined />}
-                            size="small"
-                            className={styles.logoutBtn}
-                          >
-                            Logout
-                          </Button>
-                        </Space>
-                      </div>
-                    </Sider>
+                    <AppSider />
                     {children}
                   </Content>
                 </Layout>

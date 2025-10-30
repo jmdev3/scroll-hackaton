@@ -1,18 +1,10 @@
 "use client";
 
-import {
-  AppstoreOutlined,
-  HomeOutlined,
-  LogoutOutlined,
-  SettingOutlined,
-  UserOutlined,
-} from "@ant-design/icons";
-import { Avatar, Button, Layout, Menu, Space } from "antd";
-import { type Event, EventCard } from "@/components";
+import { Layout } from "antd";
+import { EventCard } from "@/components";
 import HeroSection from "@/components/HeroSection";
+import type { Event } from "@/types";
 import styles from "./landing.module.css";
-
-const { Sider, Content } = Layout;
 
 // Sample events data
 const sampleEvents: Event[] = [
@@ -66,7 +58,7 @@ export default function Home() {
   return (
     <Layout className={styles.layout}>
       <Layout className={styles.contentLayout}>
-        <Content className={styles.content}>
+        <Layout.Content className={styles.content}>
           {/* Hero Section */}
           <HeroSection />
 
@@ -76,7 +68,7 @@ export default function Home() {
               <EventCard key={event.id} event={event} />
             ))}
           </div>
-        </Content>
+        </Layout.Content>
       </Layout>
     </Layout>
   );

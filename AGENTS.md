@@ -25,6 +25,32 @@ This is a **prediction market application** where users can bet on yes/no outcom
 - Maintain the established file structure and naming conventions
 - Ensure components are self-contained with their own styles
 
+### Component Extraction Guidelines
+
+When extracting components from existing files (like layout files), follow this pattern:
+
+1. **Create Component Folder**: Create a dedicated folder under `components/` with the component name (e.g., `components/AppSider/`)
+2. **Extract Component Logic**: Move the component JSX and any related imports to a new `.tsx` file
+3. **Extract Component Styles**: Move component-specific CSS classes to a `.module.css` file within the same folder
+4. **Update Imports**: Update the original file to import and use the new component
+5. **Clean Up**: Remove extracted styles from the original CSS file to avoid duplication
+
+**Example Structure**:
+
+```
+components/
+├── AppSider/
+│   ├── AppSider.tsx
+│   └── AppSider.module.css
+```
+
+**Key Principles**:
+
+- Each component should be self-contained with its own styles
+- Use CSS modules for component-specific styling
+- Keep related functionality together in the same folder
+- Follow existing naming conventions (PascalCase for components, kebab-case for CSS classes)
+
 ### CSS Modules Usage
 
 **IMPORTANT**: Always use CSS modules for component-specific styling. Follow these rules:
