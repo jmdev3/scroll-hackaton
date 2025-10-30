@@ -20,7 +20,7 @@
 .header {
   margin-bottom: var(--space-xl);
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   align-items: flex-start;
   gap: var(--space-lg);
 }
