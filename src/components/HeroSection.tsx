@@ -1,7 +1,6 @@
 "use client";
 
-import { Typography } from "antd";
-import { EventSlider } from "./index";
+import EventSlider from "./EventSlider";
 import styles from "./HeroSection.module.css";
 
 // Mock data for demonstration
@@ -26,30 +25,17 @@ const mockEvents = [
   },
 ];
 
-const { Title, Paragraph } = Typography;
-
 const HeroSection = () => {
   return (
     <div className={styles.heroSection}>
-      <div className={styles.heroContent}>
-        <div className={styles.heroText}>
-          <Title level={1} className={styles.heroTitle}>
-            Prediction Markets
-          </Title>
-          <Paragraph className={styles.heroSubtitle}>
-            Speculate on everything from elections to entertainment. Your insights have value.
-          </Paragraph>
-        </div>
-
-        <div style={{ display: "flex", justifyContent: "center" }}>
-          <EventSlider
-            events={mockEvents}
-            autoplay={true}
-            autoplaySpeed={5000}
-            showDots={true}
-            showArrows={true}
-          />
-        </div>
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        <EventSlider
+          events={mockEvents}
+          autoplay={true}
+          autoplaySpeed={5000}
+          showDots={true}
+          showArrows={true}
+        />
       </div>
     </div>
   );

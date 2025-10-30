@@ -27,11 +27,9 @@ export default function EventSliderItem({ event }: { event: Event }) {
   const isResolved = event.outcome !== undefined && event.outcome !== null;
 
   return (
-    // biome-ignore lint/a11y/useKeyWithClickEvents: <explanation>
-    // biome-ignore lint/a11y/noStaticElementInteractions: <explanation>
     <div className={styles.sliderItem}>
       <div className={styles.imageContainer}>
-        {/** biome-ignore lint/performance/noImgElement: <explanation> */}
+        {/** biome-ignore lint/performance/noImgElement: testing */}
         <img
           src={event.image_url}
           alt={event.question}

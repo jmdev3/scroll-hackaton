@@ -1,7 +1,7 @@
 "use client";
 
-import { Layout } from "antd";
-import { EventCard } from "@/components";
+import { Col, Layout, Row } from "antd";
+import EventCard from "@/components/EventCard";
 import HeroSection from "@/components/HeroSection";
 import type { Event } from "@/types";
 import styles from "./landing.module.css";
@@ -55,19 +55,31 @@ const sampleEvents: Event[] = [
 ];
 
 export default function Home() {
+  // Create extended events array
+  const allEvents = [
+    ...sampleEvents,
+    ...sampleEvents,
+    ...sampleEvents,
+    ...sampleEvents,
+    ...sampleEvents,
+    ...sampleEvents,
+  ];
+
+  // Calculate items to show before hero (2 rows * 2 columns = 4 items for mobile baseline)
+  const itemsBeforeHero = 12;
+
   return (
     <Layout className={styles.layout}>
       <Layout className={styles.contentLayout}>
         <Layout.Content className={styles.content}>
-          {/* Hero Section */}
-          <HeroSection />
-
-          {/* Event Cards Grid */}
-          <div className={styles.eventsGrid}>
-            {sampleEvents.map((event) => (
-              <EventCard key={event.id} event={event} />
+          {/* First two rows of Event Cards */}
+          <Row gutter={[16, 16]}>
+            {allEvents.map((event, idx) => (
+              <Col key={`${event.id}-${idx}`} xs={12} sm={8} md={6} lg={6} xl={4}>
+                <EventCard event={event} />
+              </Col>
             ))}
-          </div>
+          </Row>
         </Layout.Content>
       </Layout>
     </Layout>

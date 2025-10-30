@@ -38,74 +38,11 @@
   .content {
     padding: 20px 16px;
   }
-
-  .eventsGrid {
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 16px;
-  }
 }
 
 @media (max-width: 480px) {
   .content {
     padding: 16px 12px;
-  }
-
-  .eventsGrid {
-    grid-template-columns: 1fr;
-    gap: 12px;
-  }
-
-  .header {
-    padding: 12px 16px;
-  }
-}
-
-/* Events Grid */
-.eventsGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 24px;
-  width: 100%;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-  .contentLayout {
-    margin-left: 0;
-  }
-
-  .content {
-    padding: 20px 16px;
-  }
-
-  .heroPlaceholder,
-  .gridPlaceholder {
-    padding: 40px 20px;
-    min-height: 200px;
-    font-size: 16px;
-  }
-
-  .eventsGrid {
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 16px;
-  }
-}
-
-@media (max-width: 480px) {
-  .content {
-    padding: 16px 12px;
-  }
-
-  .heroPlaceholder,
-  .gridPlaceholder {
-    padding: 30px 16px;
-    min-height: 150px;
-    font-size: 14px;
-  }
-
-  .eventsGrid {
-    grid-template-columns: 1fr;
-    gap: 12px;
   }
 
   .header {
