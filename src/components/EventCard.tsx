@@ -184,10 +184,10 @@ export default function EventCard({ event, marketId, onBetPlaced }: EventCardPro
     handleBuyShares(false);
   };
 
-  // Assign image based on collateral address for consistency
+  // Assign image based on marketId for unique per-market images
   const imageUrl = useMemo(() => {
-    return getRandomPlaceholderImage(event.collateral);
-  }, [event.collateral]);
+    return getRandomPlaceholderImage(marketId);
+  }, [marketId]);
 
   // Determine if resolved and get result
   const isResolved = event.resolved;

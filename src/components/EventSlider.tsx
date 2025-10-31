@@ -42,7 +42,7 @@ export default function EventSlider({
       >
         {events.map((event, index) => (
           <div key={event.id ?? `${event.collateral}-${index}`} className={styles.slide}>
-            <EventSliderItem event={event} />
+            <EventSliderItem event={event} index={index} />
           </div>
         ))}
       </Carousel>

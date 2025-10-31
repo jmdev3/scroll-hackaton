@@ -7,7 +7,12 @@ import { useMemo } from "react";
 import styles from "./EventSlider.module.css";
 import PredictionButton from "./PredictionButton/PredictionButton";
 
-export default function EventSliderItem({ event }: { event: Event }) {
+interface EventSliderItemProps {
+  event: Event;
+  index?: number;
+}
+
+export default function EventSliderItem({ event, index }: EventSliderItemProps) {
   const handleYesClick = (e: React.MouseEvent) => {
     e.stopPropagation();
     // TODO: Implement Yes button logic
@@ -18,10 +23,11 @@ export default function EventSliderItem({ event }: { event: Event }) {
     // TODO: Implement No button logic
   };
 
-  // Assign image based on collateral address for consistency
+  // Assign image based on index or event.id for unique per-event images
   const imageUrl = useMemo(() => {
-    return getRandomPlaceholderImage(event.collateral);
-  }, [event.collateral]);
+    const seed = index !== undefined ? index : (event.id ?? event.collateral);
+    return getRandomPlaceholderImage(seed);
+  }, [index, event.id, event.collateral]);
 
   // Determine if resolved and get result
   const isResolved = event.resolved;
