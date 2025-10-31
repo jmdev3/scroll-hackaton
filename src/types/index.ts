@@ -19,6 +19,8 @@ export const PLACEHOLDER_IMAGES = [
 	"https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1470",
 	"https://images.unsplash.com/photo-1752119769630-81c074181749?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=686",
 	"https://images.unsplash.com/photo-1489944440615-453fc2b6a9a9?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1623",
+	"https://images.unsplash.com/photo-1626162987518-4fee900a9323?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1932",
+	"https://images.unsplash.com/photo-1722969561537-4ed6b3b98b50?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1467",
 ];
 
 /**
